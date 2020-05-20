@@ -1,0 +1,18 @@
+---
+- name: Stop Firewalld
+  service: name=firewalld state=stopped enabled=no
+
+# ansible-doc -l | grep selinux
+- name: Disable Selinux
+  selinux: state=disabled
+
+- name: Grab the swap space used (in megabytes)
+  shell: free -m | grep Swap | awk '{print $2}'
+  register: swap_used
+
+- name: Turn off swap
+  shell: "swapoff -a"
+  when: (swap_used.stdout_lines[0] | int) > 0
+
+- name: Synchronize system time
+  yum: name=ntpdate state=present

@@ -1,0 +1,4 @@
+---
+# Variables listed here are applicable to all host groups
+
+docker_version: "19.03.5"
