@@ -27,8 +27,6 @@
   with_items:
     - kubelet
 
-- include: disable-firewalld.yml
-
 - name: Enabling Bridge Firewall Rule
   copy:
     content: |
